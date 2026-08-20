@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GAME IOS ESIGN TROLL - Luxury Store</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-color: #030712;
+            --card-bg: rgba(17, 24, 39, 0.7);
+            --border-color: rgba(255, 255, 255, 0.08);
+            --accent-gold: #fbbf24;
+            --accent-glow: rgba(251, 191, 36, 0.15);
+            --text-main: #f3f4f6;
+            --text-sub: #9ca3af;
+            --success: #10b981;
+            --danger: #ef4444;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(251, 191, 36, 0.03) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(56, 189, 248, 0.03) 0%, transparent 40%);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* Navbar Glassmorphism */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 5%;
+            background: rgba(3, 7, 18, 0.8);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 1.1rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #fff 0%, var(--accent-gold) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .user-balance {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            padding: 8px 16px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .btn-luxury {
+            background: linear-gradient(135deg, #fbbf24 0%, #d97706 100%);
+            color: #000;
+            border: none;
+            padding: 9px 20px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(251, 191, 36, 0.2);
+        }
+
+        .btn-luxury:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(251, 191, 36, 0.4);
+        }
+
+        .btn-admin {
+            background: rgba(239, 68, 68, 0.1);
+            color: #ef4444;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .hero-banner {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .hero-banner h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #fff 30%, #9ca3af 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-banner p {
+            color: var(--text-sub);
+            font-size: 0.95rem;
+        }
+
+        .section-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #fff;
+        }
+
+        .section-title::before {
+            content: '';
+            width: 4px;
+            height: 18px;
+            background: var(--accent-gold);
+            border-radius: 2px;
+        }
+
+        /* Grid Cards Luxury */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 24px;
+            margin-bottom: 50px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(251, 191, 36, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 30px var(--accent-glow);
+        }
+
+        .card-body {
+            padding: 24px;
+        }
+
+        .card-title {
+            font-size: 1.15rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+
+        .card-desc {
+            color: var(--text-sub);
+            font-size: 0.88rem;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .price-tag {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--accent-gold);
+            margin-bottom: 20px;
+        }
+
+        .buy-btn {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            color: #fff;
+            padding: 12px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border-radius: 0 0 20px 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover .buy-btn {
+            background: var(--accent-gold);
+            color: #000;
+            border-color: var(--accent-gold);
+        }
+
+        /* Modal & Form */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(8px);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: #111827;
+            border: 1px solid var(--border-color);
+            padding: 35px;
+            border-radius: 24px;
+            width: 100%;
+            max-width: 440px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.6);
+        }
+
+        .modal-content h3 {
+            margin-bottom: 25px;
+            font-size: 1.3rem;
+            color: #fff;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+            color: var(--text-sub);
+        }
+
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            background: rgba(3, 7, 18, 0.6);
+            color: var(--text-main);
+            font-size: 0.95rem;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            border-color: var(--accent-gold);
+        }
+
+        .close-modal {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-sub);
+            border: 1px solid var(--border-color);
+            padding: 12px;
+            border-radius: 12px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: 600;
+            margin-top: 10px;
+            transition: 0.3s;
+        }
+
+        .close-modal:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+        }
+
+        #qrCodeBox {
+            text-align: center;
+            margin-top: 20px;
+            display: none;
+        }
+
+        #qrCodeBox img {
+            max-width: 190px;
+            border-radius: 12px;
+            border: 3px solid #fff;
+            margin-bottom: 12px;
+        }
+
+        /* Admin Section Luxury */
+        .admin-panel {
+            background: rgba(17, 24, 39, 0.9);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            padding: 30px;
+            border-radius: 24px;
+            margin-top: 60px;
+            display: none;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        th, td {
+            padding: 14px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 0.9rem;
+        }
+
+        th {
+            color: var(--accent-gold);
+            font-weight: 600;
+        }
+
+        .btn-del {
+            background: rgba(239, 68, 68, 0.2);
+            color: var(--danger);
+            border: none;
+            padding: 6px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        .btn-del:hover { background: var(--danger); color: #fff; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo"><i class="fa-solid fa-crown" style="color: var(--accent-gold);"></i> ESIGN TROLL LUXURY</div>
+        <div class="nav-actions">
+            <div class="user-balance"><i class="fa-solid fa-wallet" style="color: var(--accent-gold); margin-right: 6px;"></i> <span id="balance">0</span>đ</div>
+            <button class="btn-luxury" onclick="openModal('depositModal')">Nạp Tiền</button>
+            <button class="btn-luxury btn-admin" onclick="toggleAdmin()"><i class="fa-solid fa-lock"></i></button>
+        </div>
+    </nav>
+
+    <div class="container">
+        
+        <div class="hero-banner">
+            <h1>PREMIUM IOS EXPERIENCE</h1>
+            <p>Hệ thống chứng chỉ eSign độc quyền, IPA VIP tốc độ cao & bảo mật tối đa.</p>
+        </div>
+
+        <div class="section-title">Danh Mục Độc Quyền</div>
+        <!-- Khu vực hiển thị sản phẩm động -->
+        <div class="grid" id="productGrid"></div>
+
+        <!-- Admin Panel -->
+        <div id="adminSection" class="admin-panel">
+            <div class="section-title" style="color: #ef4444;">Khu Vực Quản Trị Hệ Thống</div>
+            <div style="display:flex; gap:20px; margin-top:20px; margin-bottom: 30px;">
+                <div style="background:rgba(3,7,18,0.5); padding:20px; border-radius:16px; border:1px solid var(--border-color); flex:1;">
+                    <span style="color:var(--text-sub); font-size:0.85rem;">Tổng Doanh Thu</span>
+                    <h3 id="totalRevenue" style="color:var(--success); font-size:1.5rem; margin-top:5px;">0đ</h3>
+                </div>
+                <div style="background:rgba(3,7,18,0.5); padding:20px; border-radius:16px; border:1px solid var(--border-color); flex:1;">
+                    <span style="color:var(--text-sub); font-size:0.85rem;">Tổng Đơn Đã Bán</span>
+                    <h3 id="totalOrders" style="color:var(--accent-gold); font-size:1.5rem; margin-top:5px;">0</h3>
+                </div>
+            </div>
+
+            <!-- Form thêm sản phẩm mới cho Admin -->
+            <h3 style="font-size:1.1rem; color: #fff; margin-bottom: 15px;"><i class="fa-solid fa-plus-circle"></i> Thêm Sản Phẩm Mới</h3>
+            <div style="background: rgba(3, 7, 18, 0.4); padding: 20px; border-radius: 16px; border: 1px solid var(--border-color); margin-bottom: 30px;">
+                <div class="form-group">
+                    <label>Tên sản phẩm / Game IPA:</label>
+                    <input type="text" id="newTitle" placeholder="Ví dụ: IPA Liên Quân Mobile Mod">
+                </div>
+                <div class="form-group">
+                    <label>Mô tả chi tiết:</label>
+                    <textarea id="newDesc" rows="2" placeholder="Ví dụ: Bản mod tối ưu map, không gian lận..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Giá tiền (VNĐ):</label>
+                    <input type="number" id="newPrice" placeholder="Ví dụ: 30000">
+                </div>
+                <button class="btn-luxury" style="width:100%;" onclick="addProduct()">Đăng Bán Sản Phẩm</button>
+            </div>
+
+            <h3 style="font-size:1.1rem; color: #fff; margin-bottom: 10px;">Lịch sử giao dịch khách hàng</h3>
+            <table>
+                <thead>
+                    <tr><th>Mã GD</th><th>Sản phẩm</th><th>Số tiền</th><th>Trạng thái</th></tr>
+                </thead>
+                <tbody id="orderTableBody">
+                    <tr><td colspan="4" style="text-align: center; color: var(--text-sub);">Chưa có lịch sử giao dịch.</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <!-- Modal Nạp Tiền -->
+    <div class="modal" id="depositModal">
+        <div class="modal-content">
+            <h3>Nạp Tiền Tự Động</h3>
+            <div class="form-group">
+                <label>Số tiền cần nạp (VNĐ):</label>
+                <input type="number" id="depositAmount" placeholder="Nhập số tiền...">
+            </div>
+            <button class="btn-luxury" style="width:100%; padding:12px; margin-bottom:10px;" onclick="generateQR()">Tạo Mã QR Chuyển Khoản</button>
+            
+            <div id="qrCodeBox">
+                <img id="qrImage" src="" alt="VietQR">
+                <p style="font-size:0.82rem; color:var(--text-sub);">Quét mã QR bằng App Ngân Hàng.<br>Tự động cộng tiền sau vài giây.</p>
+                <p style="color:var(--accent-gold); font-weight:600; margin-top:6px;" id="transferMemo"></p>
+            </div>
+            <button class="close-modal" onclick="closeModal('depositModal')">Đóng</button>
+        </div>
+    </div>
+
+    <script>
+        // Dữ liệu sản phẩm mặc định (Admin có thể thêm/xóa)
+        let products = [
+            { id: 1, title: "eSign Enterprise VIP (1 Năm)", desc: "Chứng chỉ siêu sạch, không lo bị thu hồi (Revoke). Hỗ trợ cài đặt mọi file IPA không giới hạn.", price: 50000 },
+            { id: 2, title: "IPA Minecraft Mod Full Hack", desc: "Bản mod độc quyền tích hợp menu tuỳ chỉnh, cài trực tiếp qua TrollStore hoặc eSign.", price: 20000 },
+            { id: 3, title: "Apple ID Bản Quyền (Paid Apps)", desc: "Tài khoản có sẵn hàng trăm tựa game và ứng dụng trả phí đắt đỏ trên App Store.", price: 100000 }
+        ];
+
+        let userBalance = 0;
+        let totalRev = 0;
+        let orderCount = 0;
+        let transactions = [];
+
+        function renderProducts() {
+            let grid = document.getElementById('productGrid');
+            grid.innerHTML = "";
+            
+            products.forEach(p => {
+                grid.innerHTML += `
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="card-title">${p.title}</div>
+                            <div class="card-desc">${p.desc}</div>
+                            <div class="price-tag">${p.price.toLocaleString()}đ</div>
+                        </div>
+                        <div style="display: flex;">
+                            <button class="buy-btn" onclick="buyItem(${p.id})">Sở Hữu Ngay</button>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        // Admin thêm sản phẩm mới
+        function addProduct() {
+            let title = document.getElementById('newTitle').value;
+            let desc = document.getElementById('newDesc').value;
+            let price = parseInt(document.getElementById('newPrice').value);
+
+            if(!title || !desc || isNaN(price) || price <= 0) {
+                alert("Vui lòng điền đầy đủ thông tin sản phẩm hợp lệ!");
+                return;
+            }
+
+            let newP = {
+                id: Date.now(),
+                title: title,
+                desc: desc,
+                price: price
+            };
+
+            products.push(newP);
+            renderProducts();
+            
+            // Xóa form sau khi thêm
+            document.getElementById('newTitle').value = "";
+            document.getElementById('newDesc').value = "";
+            document.getElementById('newPrice').value = "";
+            alert("Thêm sản phẩm thành công!");
+        }
+
+        function updateUI() {
+            document.getElementById('balance').innerText = userBalance.toLocaleString();
+            document.getElementById('totalRevenue').innerText = totalRev.toLocaleString() + "đ";
+            document.getElementById('totalOrders').innerText = orderCount;
+        }
+
+        function openModal(id) { document.getElementById(id).style.display = 'flex'; }
+        function closeModal(id) { document.getElementById(id).style.display = 'none'; document.getElementById('qrCodeBox').style.display = 'none'; }
+
+        function generateQR() {
+            let amount = document.getElementById('depositAmount').value;
+            if(!amount || amount < 1000) { alert("Vui lòng nhập số tiền hợp lệ!"); return; }
+            
+            let memo = "LUX " + Math.floor(100000 + Math.random() * 900000);
+            let qrUrl = `https://img.vietqr.io/image/MB-0123456789-compact2.jpg?amount=${amount}&addInfo=${memo}&accountName=NGUYEN%20VAN%20A`;
+            
+            document.getElementById('qrImage').src = qrUrl;
+            document.getElementById('transferMemo').innerText = `Nội dung: ${memo}`;
+            document.getElementById('qrCodeBox').style.display = 'block';
+
+            setTimeout(() => {
+                userBalance += parseInt(amount);
+                totalRev += parseInt(amount);
+                transactions.push({ id: "#" + Math.floor(1000+Math.random()*9000), content: `Nạp QR (${memo})`, amount: `+${parseInt(amount).toLocaleString()}đ`, status: "Thành công" });
+                updateUI();
+                updateOrderTable();
+            }, 12000);
+        }
+
+        function buyItem(id) {
+            let p = products.find(item => item.id === id);
+            if(!p) return;
+
+            if (userBalance < p.price) {
+                alert("Số dư không đủ, vui lòng nạp thêm tiền!");
+                openModal('depositModal');
+                return;
+            }
+            if (confirm(`Xác nhận thanh toán "${p.title}" với giá ${p.price.toLocaleString()}đ?`)) {
+                userBalance -= p.price;
+                orderCount++;
+                transactions.push({ id: "#" + Math.floor(1000+Math.random()*9000), content: `Mua: ${p.title}`, amount: `-${p.price.toLocaleString()}đ`, status: "Đã giao" });
+                updateUI();
+                updateOrderTable();
+                alert("Giao dịch thành công! Đã gửi thông tin tải sản phẩm.");
+            }
+        }
+
+        function updateOrderTable() {
+            let tbody = document.getElementById('orderTableBody');
+            if (transactions.length === 0) return;
+            tbody.innerHTML = "";
+            transactions.slice().reverse().forEach(tx => {
+                tbody.innerHTML += `<tr><td>${tx.id}</td><td>${tx.content}</td><td style="font-weight:600; color:var(--accent-gold);">${tx.amount}</td><td><span style="color:var(--success);">${tx.status}</span></td></tr>`;
+            });
+        }
+
+        function toggleAdmin() {
+            let adminSec = document.getElementById('adminSection');
+            if (adminSec.style.display === "none") {
+                let pin = prompt("Nhập mã PIN Admin (Mặc định: 1234):");
+                if (pin === "1234") {
+                    adminSec.style.display = "block";
+                    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+                } else if(pin !== null) { alert("Sai mã PIN!"); }
+            } else { adminSec.style.display = "none"; }
+        }
+
+        // Khởi chạy hiển thị danh sách sản phẩm ban đầu
+        renderProducts();
+    </script>
+</body>
+</html>
